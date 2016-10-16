@@ -29,7 +29,7 @@ def count_words(phrase):
         {'Porcupine': 1, 'do.': 1, 'porcupine': 1, 'see,': 1}
     """
     # splitting input string by spaces, creating list
-    words = phrase.split(" ")
+    words = phrase.split()
 
     # initializing dictionary
     words_dict = {}
@@ -182,7 +182,7 @@ def translate_to_pirate_talk(phrase):
         'me swabbie be not a man!'
     """
     # Splitting the input string by each space, creating a list
-    sentence = phrase.split(" ")
+    sentence = phrase.split()
 
     # Initializing empty list to store translated phrase in list-form
     pirate_sentence = []
@@ -200,32 +200,34 @@ def translate_to_pirate_talk(phrase):
         "are": "be",
         "restroom": "head",
         "my": "me",
-        "is": "be"
-        }
+        "is": "be",
+    }
 
-    # Initialized variable i to zero
-    i = 0
+    return " ".join([english_to_pirate.get(word, word) for word in sentence])
 
-    # While loop to iterate over each word in the sentence list, while i is 
-    # less than the length of the list
-    while i < len(sentence):
-        # initializing variable word to represent the sentence at a particular index
-        word = sentence[i]
+    # # Initialized variable i to zero
+    # i = 0
 
-        # checking to see if a word is in the dictionary, if so, rebind word to 
-        # equal the value, aka the translated word
-        # could also use .get(): word = english_to_pirate.get(word, word)
-        if word in english_to_pirate:
-            word = english_to_pirate[word]
+    # # While loop to iterate over each word in the sentence list, while i is 
+    # # less than the length of the list
+    # while i < len(sentence): #(for word in sentence:)
+    #     # initializing variable word to represent the sentence at a particular index
+    #     word = sentence[i]
 
-        # Take the translated word and add it to the empty list
-        pirate_sentence.append(word)
+    #     # checking to see if a word is in the dictionary, if so, rebind word to 
+    #     # equal the value, aka the translated word
+    #     # could also use .get(): word = english_to_pirate.get(word, word)
+    #     if word in english_to_pirate:
+    #         word = english_to_pirate[word]
 
-        # Incrementing by one to access next word in list 
-        i += 1
+    #     # Take the translated word and add it to the empty list
+    #     pirate_sentence.append(word)
 
-    # returning the translation, which is joined back into a string by spaces.
-    return " ".join(pirate_sentence)
+    #     # Incrementing by one to access next word in list 
+    #     i += 1
+
+    # # returning the translation, which is joined back into a string by spaces.
+    # return " ".join(pirate_sentence)
 
 
 def kids_game(names):
@@ -270,8 +272,29 @@ def kids_game(names):
     a dictionary (with the super-fast lookup they provide) can help;
     good solutions here will definitely require a dictionary.
     """
+    output = [names.pop(0)]
 
-    return []
+    letter_word_dict = {}
+    # {first letter: [words beginning with that letter]}
+
+    for word in names:
+        first_letter = word[0]
+
+        if first_letter not in letter_word_dict:
+            letter_word_dict[first_letter] = [word]
+        else:
+            letter_word_dict[first_letter].append(word)
+
+    while True:
+        start_letter = output[-1][-1]
+
+        if not letter_word_dict.get(start_letter):
+            break
+
+        match = letter_word_dict[start_letter].pop(0)
+        output.append(match)
+
+    return output
 
 #####################################################################
 # You can ignore everything below this.
