@@ -128,7 +128,7 @@ def word_length_sorted(words):
             # ex. 2 already exists, with the value "ok". Now, we add "an" to 
             # the value as a second element in that list.
         if w_length in word_lengths:
-            word_lengths[w_length] += [word]
+            word_lengths[w_length].append(word) 
         # otherwise, add the word length and the word as its value
         else:
             word_lengths[w_length] = [word]
@@ -203,8 +203,24 @@ def translate_to_pirate_talk(phrase):
         "is": "be",
     }
 
-    return " ".join([english_to_pirate.get(word, word) for word in sentence])
+    for word in sentence:
+        if word in english_to_pirate:
+            pirate_sentence.append(english_to_pirate[word])
+        else:
+            pirate_sentence.append(word)
+            
+    return " ".join(pirate_sentence)
 
+
+
+
+    # return " ".join([english_to_pirate.get(word, word) for word in sentence])
+
+    # enumerate gives a list of tuples
+
+
+
+    # EDIT: Not Pythonic, JS infiltrating code!!!
     # # Initialized variable i to zero
     # i = 0
 
@@ -239,6 +255,13 @@ def kids_game(names):
 
     Do the following:
 
+    PSEUDO CODE
+    1. start_list = [x, y, z]
+    2. new_list = [start_list[0]] AKA new_list.append(start_list[0])
+    3. new_list[0]
+
+
+
     1. Always start with the first word ("bagon", in this example).
 
     2. Add it to the results.
@@ -272,7 +295,11 @@ def kids_game(names):
     a dictionary (with the super-fast lookup they provide) can help;
     good solutions here will definitely require a dictionary.
     """
+
+
     output = [names.pop(0)]
+
+    print output
 
     letter_word_dict = {}
     # {first letter: [words beginning with that letter]}
